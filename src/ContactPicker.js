@@ -201,7 +201,7 @@ export default function ContactPicker() {
 function ContactsSelected({ contacts }) {
   return (
     <ul>
-      {contacts.map(contact => {
+      {contacts?.map(contact => {
         return (
           <li key={contact.name}>
             {contact.name && (
