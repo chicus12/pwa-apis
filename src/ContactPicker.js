@@ -73,6 +73,7 @@ export default function ContactPicker() {
       alert(data)
       // handleResults(contacts)
     } catch (error) {
+      alert(error)
       console.log(error)
     }
   }, [properties])
