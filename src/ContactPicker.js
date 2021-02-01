@@ -70,6 +70,7 @@ export default function ContactPicker() {
     try {
       const data = await navigator.contacts.select(propsOptions, opts)
       setContacts(data)
+      alert(data)
       // handleResults(contacts)
     } catch (error) {
       console.log(error)
