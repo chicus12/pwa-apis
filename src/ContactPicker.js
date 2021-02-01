@@ -70,8 +70,6 @@ export default function ContactPicker() {
     try {
       const data = await navigator.contacts.select(propsOptions, opts)
       setContacts(data)
-      alert(data)
-      // handleResults(contacts)
     } catch (error) {
       alert(error)
       console.log(error)
@@ -204,33 +202,43 @@ function ContactsSelected({ contacts }) {
       {contacts?.map(contact => {
         return (
           <li key={contact.name}>
-            {contact.name && (
-              <b>
-                Nombre:
-                {contact.name}
-              </b>
+            {contact?.name && (
+              <>
+                <b>
+                  Nombre:
+                  {contact.name}
+                </b>
+                <br />
+              </>
             )}
 
-            {contact.email && (
-              <b>
-                Email:
-                {contact.email.join(', ')}
-              </b>
+            {contact?.email && (
+              <>
+                <b>
+                  Email:
+                  {contact.email.join(', ')}
+                </b>
+                <br />
+              </>
             )}
 
-            {contact.tel && (
-              <b>
-                Teléfono:
-                {contact.tel.join(', ')}
-              </b>
+            {contact?.tel && (
+              <>
+                <b>
+                  Teléfono:
+                  {contact.tel.join(', ')}
+                </b>
+                <br />
+              </>
             )}
 
-            {contact.icon.map(icon => {
+            {contact?.icon?.map(icon => {
               const imgURL = URL.createObjectURL(icon)
               return (
                 <>
                   <b>Icon:</b>
                   <img src={imgURL} alt={contact.name} />
+                  <br />
                 </>
               )
             })}
