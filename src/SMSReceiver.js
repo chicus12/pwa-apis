@@ -27,7 +27,7 @@ export default function SMSReceiver() {
     <SuccesfulOTPReceived />
   ) : (
     <>
-      <h1>Demo de un OTP</h1>
+      <h1>OTP SMS Receiver Demo</h1>
       <div>
         Enviar un SMS que incluya lo siguiente:
         <pre>

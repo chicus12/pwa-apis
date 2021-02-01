@@ -2,12 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 // import App from './App';
-import SMS from './SMS-receiver'
+// import SMS from './SMSReceiver'
+import ContactPicker from './ContactPicker'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
   <React.StrictMode>
-    <SMS />
+    <ContactPicker />
   </React.StrictMode>,
   document.getElementById('root')
 )
