@@ -2,6 +2,8 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react'
 
+const isSupported = 'wakeLock' in navigator && 'request' in navigator.wakeLock
+
 export default function WakeLock() {
   const [secondsToSleep, setSecondsToSleep] = React.useState(15)
   const [isWakeLocked, setIsWakeLocked] = React.useState(true)
@@ -11,18 +13,18 @@ export default function WakeLock() {
   React.useEffect(() => {
     if (interval) {
       const timer = setInterval(() => {
-        setSecondsToSleep(seconds => seconds - 1)
+        setSecondsToSleep(seconds => (isWakeLocked ? seconds + 1 : seconds - 1))
       }, 1000)
 
       return () => clearInterval(timer)
     }
-  }, [interval])
+  }, [interval, isWakeLocked])
 
   React.useEffect(() => {
-    if (secondsToSleep === 0) {
+    if (secondsToSleep === 0 && !isWakeLocked) {
       setIntervalTimer(false)
     }
-  }, [secondsToSleep])
+  }, [secondsToSleep, isWakeLocked])
 
   const requestWakeLock = React.useCallback(async () => {
     try {
@@ -33,14 +35,22 @@ export default function WakeLock() {
   }, [])
 
   const onWakeLockCheckboxChange = React.useCallback(async evt => {
-    if (evt.target.checked) {
-      await requestWakeLock()
-    } else {
-      setIntervalTimer(true)
-      setSecondsToSleep(15)
-      await wakeLock.current.release()
+    if (!isSupported) {
+      console.error(
+        'Llamar a la función `requestWakeLock` no tiene ningún efecto, la API de Wake Lock Screen no es compatible con el navegador'
+      )
+
+      return
     }
 
+    if (evt.target.checked) {
+      await requestWakeLock()
+      setSecondsToSleep(0)
+    } else {
+      await wakeLock.current.release()
+      setSecondsToSleep(15)
+    }
+    setIntervalTimer(true)
     setIsWakeLocked(locked => !locked)
   }, [])
 
@@ -58,7 +68,7 @@ export default function WakeLock() {
       {isWakeLocked ? (
         <h2>Esta pantalla se apagará en {secondsToSleep}</h2>
       ) : (
-        <h2>La pantalla NO se apagará</h2>
+        <h2>La pantalla NO se apagará. Tiempo transcurrido {secondsToSleep}</h2>
       )}
     </div>
   )
