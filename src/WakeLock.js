@@ -6,7 +6,7 @@ const isSupported = 'wakeLock' in navigator && 'request' in navigator.wakeLock
 
 export default function WakeLock() {
   const [secondsToSleep, setSecondsToSleep] = React.useState(15)
-  const [isWakeLocked, setIsWakeLocked] = React.useState(true)
+  const [isWakeLocked, setIsWakeLocked] = React.useState(false)
   const [interval, setIntervalTimer] = React.useState(true)
   const wakeLock = React.useRef(null)
 
