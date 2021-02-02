@@ -11,6 +11,8 @@ export default function WakeLock() {
   const wakeLock = React.useRef(null)
 
   React.useEffect(() => {
+    console.log(interval)
+    console.log(isWakeLocked)
     if (interval) {
       const timer = setInterval(() => {
         setSecondsToSleep(seconds => (isWakeLocked ? seconds + 1 : seconds - 1))
@@ -22,6 +24,7 @@ export default function WakeLock() {
 
   React.useEffect(() => {
     if (secondsToSleep === 0 && !isWakeLocked) {
+      console.log('hola')
       setIntervalTimer(false)
     }
   }, [secondsToSleep, isWakeLocked])
@@ -43,6 +46,9 @@ export default function WakeLock() {
       return
     }
 
+    setIntervalTimer(true)
+    setIsWakeLocked(locked => !locked)
+
     if (evt.target.checked) {
       await requestWakeLock()
       setSecondsToSleep(0)
@@ -50,8 +56,6 @@ export default function WakeLock() {
       await wakeLock.current.release()
       setSecondsToSleep(15)
     }
-    setIntervalTimer(true)
-    setIsWakeLocked(locked => !locked)
   }, [])
 
   return (
