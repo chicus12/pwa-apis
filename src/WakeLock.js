@@ -66,9 +66,9 @@ export default function WakeLock() {
         Evitar que la <code>pantalla</code> se apague
       </label>
       {isWakeLocked ? (
-        <h2>Esta pantalla se apagará en {secondsToSleep}</h2>
-      ) : (
         <h2>La pantalla NO se apagará. Tiempo transcurrido {secondsToSleep}</h2>
+      ) : (
+        <h2>Esta pantalla se apagará en {secondsToSleep}</h2>
       )}
     </div>
   )
