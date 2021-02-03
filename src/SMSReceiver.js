@@ -15,7 +15,7 @@ export default function SMSReceiver() {
         })
         .then(otp => {
           setOtpCode(otp.code)
-          formRef.current.submit()
+          formRef.current.requestSubmit()
         })
         .catch(err => {
           console.log(err)
