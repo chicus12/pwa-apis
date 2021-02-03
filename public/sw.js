@@ -34,7 +34,7 @@ self.addEventListener('sync', event => {
   event.waitUntil(
     setTimeout(function () {
       fetchPokemon(name)
-    }, 2000)
+    }, 3000)
   )
 })
 
