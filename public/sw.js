@@ -30,7 +30,12 @@ async function fetchPokemon(name) {
 
 self.addEventListener('sync', event => {
   const { name } = syncStore[event.tag]
-  event.waitUntil(fetchPokemon(name))
+
+  event.waitUntil(
+    setTimeout(function () {
+      fetchPokemon(name)
+    }, 3000)
+  )
 })
 
 function receivePushNotification(event) {
