@@ -59,13 +59,12 @@ export default function PushNotification() {
           : 'Enviar una solicitud al server para suscribirse'}
       </button>
       <br />
-      {pushServerSubscriptionId && (
-        <div>
-          <button type="button" onClick={sendNotification}>
-            Enviar una notificación de prueba
-          </button>
-        </div>
-      )}
+
+      <div>
+        <button type="button" onClick={sendNotification}>
+          Enviar una notificación de prueba
+        </button>
+      </div>
     </main>
   )
 }
