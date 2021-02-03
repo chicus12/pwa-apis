@@ -96,6 +96,9 @@ export default function BackgroundSync() {
           ))}
         </select>
       </label>
+      <button type="button" value="charmander" onClick={onPokemonSelected}>
+        Charmander
+      </button>
       {online ? (
         <h1 style={{ color: 'green' }}>Online</h1>
       ) : (
