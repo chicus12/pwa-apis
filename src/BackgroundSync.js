@@ -22,21 +22,24 @@ export default function BackgroundSync() {
   const [pokemonName, setPokemonName] = React.useState('')
   const [online, isOnline] = React.useState(navigator.onLine)
 
-  const onPokemonSelected = React.useCallback(async evt => {
-    const name = evt.target.value
+  const onPokemonSelected = React.useCallback(
+    async evt => {
+      const name = evt.target.value
 
-    if (name.length) {
-      if (online) {
-        const pokemonData = await fetchPokemon(evt.target.value)
-        setPokemon(pokemonData)
+      if (name.length) {
+        if (online) {
+          const pokemonData = await fetchPokemon(evt.target.value)
+          setPokemon(pokemonData)
+        } else {
+          setPokemonName(name)
+          sw.controller.postMessage({ type: 'sync', name })
+        }
       } else {
-        setPokemonName(name)
-        sw.controller.postMessage({ type: 'sync', name })
+        setPokemon('')
       }
-    } else {
-      setPokemon('')
-    }
-  }, [])
+    },
+    [online]
+  )
 
   React.useEffect(() => {
     if (sw) {
