@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function SMSReceiver() {
   const [verified, setVerified] = React.useState(false)
-  const [otpCode, setOtpCode] = React.useState(false)
+  const [otpCode, setOtpCode] = React.useState(null)
   const formRef = React.useRef(null)
 
   React.useEffect(() => {

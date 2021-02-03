@@ -5,17 +5,15 @@ import React from 'react'
 const isSupported = 'wakeLock' in navigator && 'request' in navigator.wakeLock
 
 export default function WakeLock() {
-  const [secondsToSleep, setSecondsToSleep] = React.useState(15)
+  const [seconds, setSeconds] = React.useState(15)
   const [isWakeLocked, setIsWakeLocked] = React.useState(false)
   const [interval, setIntervalTimer] = React.useState(true)
   const wakeLock = React.useRef(null)
 
   React.useEffect(() => {
-    console.log(interval)
-    console.log(isWakeLocked)
     if (interval) {
       const timer = setInterval(() => {
-        setSecondsToSleep(seconds => (isWakeLocked ? seconds + 1 : seconds - 1))
+        setSeconds(sec => (isWakeLocked ? sec + 1 : sec - 1))
       }, 1000)
 
       return () => clearInterval(timer)
@@ -23,11 +21,10 @@ export default function WakeLock() {
   }, [interval, isWakeLocked])
 
   React.useEffect(() => {
-    if (secondsToSleep === 0 && !isWakeLocked) {
-      console.log('hola')
+    if (seconds === 0 && !isWakeLocked) {
       setIntervalTimer(false)
     }
-  }, [secondsToSleep, isWakeLocked])
+  }, [seconds, isWakeLocked])
 
   const requestWakeLock = React.useCallback(async () => {
     try {
@@ -51,10 +48,10 @@ export default function WakeLock() {
 
     if (evt.target.checked) {
       await requestWakeLock()
-      setSecondsToSleep(0)
+      setSeconds(0)
     } else {
       await wakeLock.current.release()
-      setSecondsToSleep(15)
+      setSeconds(15)
     }
   }, [])
 
@@ -70,9 +67,9 @@ export default function WakeLock() {
         Evitar que la <code>pantalla</code> se apague
       </label>
       {isWakeLocked ? (
-        <h2>La pantalla NO se apagará. Tiempo transcurrido {secondsToSleep}</h2>
+        <h2>La pantalla NO se apagará. Tiempo transcurrido {seconds}</h2>
       ) : (
-        <h2>Esta pantalla se apagará en {secondsToSleep}</h2>
+        <h2>Esta pantalla se apagará en {seconds}</h2>
       )}
     </div>
   )
