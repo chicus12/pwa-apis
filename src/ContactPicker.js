@@ -59,11 +59,21 @@ export default function ContactPicker() {
 
   const getContacts = React.useCallback(async () => {
     const propsOptions = []
-    if (properties.name) propsOptions.push('name')
-    if (properties.email) propsOptions.push('email')
-    if (properties.tel) propsOptions.push('tel')
-    if (properties.address) propsOptions.push('address')
-    if (properties.icon) propsOptions.push('icon')
+    if (properties.name) {
+      propsOptions.push('name')
+    }
+    if (properties.email) {
+      propsOptions.push('email')
+    }
+    if (properties.tel) {
+      propsOptions.push('tel')
+    }
+    if (properties.address) {
+      propsOptions.push('address')
+    }
+    if (properties.icon) {
+      propsOptions.push('icon')
+    }
 
     const opts = { multiple: properties.multiple }
 

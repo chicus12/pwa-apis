@@ -34,26 +34,29 @@ export default function WakeLock() {
     }
   }, [])
 
-  const onWakeLockCheckboxChange = React.useCallback(async evt => {
-    if (!isSupported) {
-      console.error(
-        'Llamar a la función `requestWakeLock` no tiene ningún efecto, la API de Wake Lock Screen no es compatible con el navegador'
-      )
+  const onWakeLockCheckboxChange = React.useCallback(
+    async evt => {
+      if (!isSupported) {
+        console.error(
+          'Llamar a la función `requestWakeLock` no tiene ningún efecto, la API de Wake Lock Screen no es compatible con el navegador'
+        )
 
-      return
-    }
+        return
+      }
 
-    setIntervalTimer(true)
-    setIsWakeLocked(locked => !locked)
+      setIntervalTimer(true)
+      setIsWakeLocked(locked => !locked)
 
-    if (evt.target.checked) {
-      await requestWakeLock()
-      setSeconds(0)
-    } else {
-      await wakeLock.current.release()
-      setSeconds(15)
-    }
-  }, [])
+      if (evt.target.checked) {
+        await requestWakeLock()
+        setSeconds(0)
+      } else {
+        await wakeLock.current.release()
+        setSeconds(15)
+      }
+    },
+    [requestWakeLock]
+  )
 
   return (
     <div style={{ padding: 40 }}>
